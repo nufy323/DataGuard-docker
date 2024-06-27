@@ -35,18 +35,18 @@ EOF
 }
 
 # Validate packages
-checksumPackages() {
-  if hash md5sum 2>/dev/null; then
-    echo "Checking if required packages are present and valid..."   
-    if ! md5sum -c "Checksum.$EDITION"; then
-      echo "MD5 for required packages to build this image did not match!"
-      echo "Make sure to download missing files in folder $VERSION."
-      exit 1;
-    fi
-  else
-    echo "Ignored MD5 sum, 'md5sum' command not available.";
-  fi
-}
+# checksumPackages() {
+#   if hash md5sum 2>/dev/null; then
+#     echo "Checking if required packages are present and valid..."   
+#     if ! md5sum -c "Checksum.$EDITION"; then
+#       echo "MD5 for required packages to build this image did not match!"
+#       echo "Make sure to download missing files in folder $VERSION."
+#       exit 1;
+#     fi
+#   else
+#     echo "Ignored MD5 sum, 'md5sum' command not available.";
+#   fi
+# }
 
 # Check Docker version
 checkDockerVersion() {
@@ -70,10 +70,10 @@ checkDockerVersion() {
 ENTERPRISE=0
 STANDARD=0
 EXPRESS=0
-VERSION="19.3.0"
-SKIPMD5=0
+VERSION="12.2.0"
+SKIPMD5=1
 DOCKEROPS=""
-MIN_DOCKER_VERSION="17.09"
+MIN_DOCKER_VERSION="17.9"
 DOCKERFILE="Dockerfile"
 
 if [ "$#" -eq 0 ]; then

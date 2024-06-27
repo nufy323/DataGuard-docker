@@ -18,7 +18,7 @@
 #-------------------------------------------------------------------------------
 # Do not change the following system generated value. 
 #-------------------------------------------------------------------------------
-oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v19.0.0
+oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v12.2.0
 
 #-------------------------------------------------------------------------------
 # Specify the installation option.
@@ -55,10 +55,12 @@ ORACLE_BASE=###ORACLE_BASE###
 #                                                             
 # The value should contain only one of these choices.  
 #   - EE     : Enterprise Edition 
-#   - SE2    : Standard Edition 2
-#-------------------------------------------------------------------------------
-oracle.install.db.InstallEdition=###ORACLE_EDITION###
+#   - SE2     : Standard Edition 2
 
+
+#-------------------------------------------------------------------------------
+
+oracle.install.db.InstallEdition=###ORACLE_EDITION###
 ###############################################################################
 #                                                                             #
 # PRIVILEGED OPERATING SYSTEM GROUPS                                          #
@@ -66,7 +68,7 @@ oracle.install.db.InstallEdition=###ORACLE_EDITION###
 # Provide values for the OS groups to which SYSDBA and SYSOPER privileges     #
 # needs to be granted. If the install is being performed as a member of the   #
 # group "dba", then that will be used unless specified otherwise below.       #
-#                                                                             #
+#                                                                             
 # The value to be specified for OSDBA and OSOPER group is only for UNIX based #
 # Operating System.                                                           #
 #                                                                             #
@@ -103,6 +105,7 @@ oracle.install.db.OSKMDBA_GROUP=dba
 #------------------------------------------------------------------------------
 oracle.install.db.OSRACDBA_GROUP=dba
 
+
 #------------------------------------------------------------------------------
 # Specify whether to enable the user to set the password for
 # My Oracle Support credentials. The value can be either true or false.
@@ -110,7 +113,7 @@ oracle.install.db.OSRACDBA_GROUP=dba
 #
 # Example    : SECURITY_UPDATES_VIA_MYORACLESUPPORT=true
 #------------------------------------------------------------------------------
-SECURITY_UPDATES_VIA_MYORACLESUPPORT=false
+SECURITY_UPDATES_VIA_MYORACLESUPPORT=
 
 #------------------------------------------------------------------------------
 # Specify whether user doesn't want to configure Security Updates.

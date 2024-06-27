@@ -29,9 +29,9 @@ MAINTAINER Sean Scott <oracle.sean@gmail.com>
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
 ENV ORACLE_BASE=/opt/oracle \
-    ORACLE_HOME=/opt/oracle/product/19c/dbhome_1 \
+    ORACLE_HOME=/opt/oracle/product/12c/dbhome_1 \
     INSTALL_DIR=/opt/install \
-    INSTALL_FILE_1="LINUX.X64_193000_db_home.zip" \
+    INSTALL_FILE_1="linuxx64_12201_database.zip" \
     INSTALL_RSP="db_inst.rsp" \
     CONFIG_RSP="dbca.rsp.tmpl" \
     PWD_FILE="setPassword.sh" \
@@ -91,7 +91,8 @@ USER oracle
 COPY --chown=oracle:dba --from=builder $ORACLE_BASE $ORACLE_BASE
 
 USER root
-RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
+RUN sleep 300 && \ 
+    $ORACLE_BASE/oraInventory/orainstRoot.sh && \
     $ORACLE_HOME/root.sh
 
 USER oracle
