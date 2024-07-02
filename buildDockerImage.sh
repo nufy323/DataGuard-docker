@@ -118,6 +118,8 @@ done
 
 checkDockerVersion
 
+wget ftp://ftpuser:ftpuser@10.186.18.90/oracle-tarball/linuxx64_12201_database.zip -O $PWD/12.2.0/linuxx64_12201_database.zip
+
 # Which Edition should be used?
 if [ $((ENTERPRISE + STANDARD + EXPRESS)) -gt 1 ]; then
   usage
