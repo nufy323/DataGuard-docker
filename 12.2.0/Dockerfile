@@ -91,8 +91,7 @@ USER oracle
 COPY --chown=oracle:dba --from=builder $ORACLE_BASE $ORACLE_BASE
 
 USER root
-RUN sleep 300 && \ 
-    $ORACLE_BASE/oraInventory/orainstRoot.sh && \
+RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
     $ORACLE_HOME/root.sh
 
 USER oracle

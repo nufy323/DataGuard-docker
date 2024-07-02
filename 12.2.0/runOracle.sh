@@ -10,25 +10,6 @@
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 # 
 
-########### Move DB files ############
-function moveFiles {
-
-   if [ ! -d $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID ]; then
-      mkdir -p $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   fi;
-
-   mv $ORACLE_HOME/dbs/spfile$ORACLE_SID.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   mv $ORACLE_HOME/dbs/orapw$ORACLE_SID $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   mv $ORACLE_HOME/network/admin/sqlnet.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   mv $ORACLE_HOME/network/admin/listener.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   mv $ORACLE_HOME/network/admin/tnsnames.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-
-   # oracle user does not have permissions in /etc, hence cp and not mv
-   cp /etc/oratab $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
-   
-   symLinkFiles;
-}
-
 ########### Symbolic link DB files ############
 function symLinkFiles {
 
