@@ -3,7 +3,7 @@ export DG_DIR="${DG_DIR:-~/docker-dataguard}"
 export ORADATA_VOLUME="${ORADATA_VOLUME:-~/oradata}"
 
 # Set variables used by Docker, Compose if not present:
-export DB_VERSION="${DB_VERSION:-19.3.0}"
+export DB_VERSION="${DB_VERSION:-12.2.0}"
 export COMPOSE_YAML="${COMPOSE_YAML:-docker-compose.yml}"
 export IMAGE_NAME="${IMAGE_NAME:-oracle/database:${DB_VERSION}-ee}"
 

@@ -26,6 +26,7 @@ FROM oraclelinux:7-slim as base
 # ----------
 MAINTAINER Sean Scott <oracle.sean@gmail.com>
 
+
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
 ENV ORACLE_BASE=/opt/oracle \
@@ -94,14 +95,48 @@ USER root
 RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
     $ORACLE_HOME/root.sh
 
-USER oracle
+## prepare action 
+
+RUN yum -y update; yum clean all
+RUN yum -y install systemd; yum clean all; \
+(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+
+
+RUN yum install -y sudo vi less which wget net-tools fontconfig libaio hwloc libpciaccess lsof libatomic libev \
+    perl tar sg3_utils perl-Time-HiRes perl-DBD-MySQL perl-Digest-MD5 psmisc openssh-server git iproute zsh \   
+    glibc-locale-source glibc-langpack-en glibc sysstat sqlite perl-Data-Dumper crontabs libnsl compat-openssl10 hostname
+
+RUN yum install -y hostname sudo iproute
+
+
+RUN mkdir -p /var/run/sshd && \
+    echo 'root:123' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    ssh-keygen -A
+
+
+# USER oracle
 WORKDIR /home/oracle
 
 VOLUME ["$ORACLE_BASE/oradata"]
 EXPOSE 1521 5500
-HEALTHCHECK --interval=1m --start-period=15m \
-   CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1
 
-# Define default command to start Oracle Database. 
-CMD exec $ORACLE_BASE/$RUN_FILE
+
+# USER root 
+
+VOLUME [ "/sys/fs/cgroup" ]
+
+CMD ["/usr/sbin/init"]
+# HEALTHCHECK --interval=1m --start-period=15m \
+#    CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1
+
+# # Define default command to start Oracle Database. 
+# CMD exec $ORACLE_BASE/$RUN_FILE
 

@@ -51,7 +51,7 @@ sed -i -e "s|###ORACLE_HOME###|$ORACLE_HOME|g" $INSTALL_DIR/$INSTALL_RSP
 # Install Oracle binaries
 cd $INSTALL_DIR       && \
 unzip $INSTALL_FILE_1 -d $INSTALL_DIR/stage && \
-# rm $INSTALL_FILE_1    && \
+rm $INSTALL_FILE_1    && \
 $INSTALL_DIR/stage/database/runInstaller -silent -force -waitforcompletion -responsefile $INSTALL_DIR/$INSTALL_RSP -ignorePrereqFailure && \
 cd $HOME
 

@@ -1,8 +1,12 @@
-version: '3'
 services: 
   DG11:
-    image: oracle/database:12.2.0-ee
+    image: reg.actiontech.com/actiontech-dev/oracle/database-dg:12.2.0-ee
     container_name: DG11
+    hostname: DG11
+    privileged: true
+    networks:
+      network1:
+        ipv4_address: 172.20.134.200
     volumes:
       - "/root/oradata/DG11:/opt/oracle/oradata"
       - "/root/DataGuard-docker:/opt/oracle/scripts"
@@ -19,8 +23,13 @@ services:
       - "1211:1521"
 
   DG21:
-    image: oracle/database:12.2.0-ee
+    image: reg.actiontech.com/actiontech-dev/oracle/database-dg:12.2.0-ee
     container_name: DG21
+    hostname: DG21
+    privileged: true
+    networks:
+      network1:
+        ipv4_address: 172.20.134.201
     volumes:
       - "/root/oradata/DG21:/opt/oracle/oradata"
       - "/root/DataGuard-docker:/opt/oracle/scripts"
@@ -35,4 +44,7 @@ services:
       ROLE: STANDBY
     ports:
       - "1212:1521"
-
+networks:
+  network1:
+    name: compose_quick_net
+    external: true
